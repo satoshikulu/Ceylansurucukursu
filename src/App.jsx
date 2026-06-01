@@ -355,6 +355,17 @@ function App() {
     }
   }, [user, screen]);
 
+  useEffect(() => {
+    if (modal.open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [modal.open]);
+
   const currentQuestion = quizState.data[quizState.currentQ] || null;
   const quizProgress = quizState.data.length ? ((quizState.currentQ) / quizState.data.length) * 100 : 0;
   const branchPhone = user ? branchPhones[user.branch] || '0332 322 45 56' : '0332 322 45 56';
@@ -750,28 +761,99 @@ function App() {
   );
 
   const splashContent = (
-    <div id="splash" className="screen active">
-      <div className="splash-logo">
-        <svg width="48" height="48" viewBox="0 0 56 56" fill="none">
-          <circle cx="28" cy="28" r="24" stroke="white" strokeWidth="4" fill="none" />
-          <circle cx="28" cy="28" r="6" fill="white" />
-          <line x1="28" y1="22" x2="28" y2="8" stroke="white" strokeWidth="4" strokeLinecap="round" />
-          <line x1="28" y1="34" x2="20" y2="47" stroke="white" strokeWidth="4" strokeLinecap="round" />
-          <line x1="28" y1="34" x2="36" y2="47" stroke="white" strokeWidth="4" strokeLinecap="round" />
-        </svg>
+    <div id="splash" className="splash-new">
+      {/* Hero görsel alanı */}
+      <div className="splash-hero">
+        <img
+          src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80&auto=format&fit=crop"
+          alt="Sürücü kursu"
+          className="splash-hero-img"
+        />
+        <div className="splash-hero-overlay" />
+        {/* Üst logo bandı */}
+        <div className="splash-topbar">
+          <div className="splash-badge-pill">
+            <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
+              <circle cx="28" cy="28" r="22" stroke="white" strokeWidth="5" fill="none"/>
+              <circle cx="28" cy="28" r="5" fill="white"/>
+              <line x1="28" y1="23" x2="28" y2="10" stroke="white" strokeWidth="5" strokeLinecap="round"/>
+              <line x1="28" y1="33" x2="21" y2="45" stroke="white" strokeWidth="5" strokeLinecap="round"/>
+              <line x1="28" y1="33" x2="35" y2="45" stroke="white" strokeWidth="5" strokeLinecap="round"/>
+            </svg>
+            <span>Ceylan Sürücü Kursu</span>
+          </div>
+        </div>
+        {/* Hero alt metin */}
+        <div className="splash-hero-text">
+          <div className="splash-hero-tag">KONYA'NIN LİDERİ</div>
+          <h1 className="splash-hero-title">Güvenli Sürüşün<br /><span>Doğru Adresi</span></h1>
+          <div className="splash-stats-row">
+            <div className="splash-stat">
+              <span className="splash-stat-num">12</span>
+              <span className="splash-stat-lbl">Şube</span>
+            </div>
+            <div className="splash-stat-divider" />
+            <div className="splash-stat">
+              <span className="splash-stat-num">15+</span>
+              <span className="splash-stat-lbl">Yıl Deneyim</span>
+            </div>
+            <div className="splash-stat-divider" />
+            <div className="splash-stat">
+              <span className="splash-stat-num">50K+</span>
+              <span className="splash-stat-lbl">Mezun</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <div className="splash-title">Ceylan <span>Sürücü Kursu</span></div>
-        <div style={{ fontFamily: 'Syne', fontSize: 11, color: 'var(--muted)', textAlign: 'center', letterSpacing: 3, marginTop: 4 }}>KONYA • 12 ŞUBE</div>
-      </div>
-      <p className="splash-sub">Güvenli sürüşün adresi.<br /><span style={{ color: 'var(--orange)', fontWeight: 600 }}>12 şube · Konya'nın lideri.</span></p>
-      <div className="splash-form">
-        <input className="inp" value={nameInput} onChange={(e) => setNameInput(e.target.value)} placeholder="Adın Soyadın" />
-        <select className="inp" value={branchInput} onChange={(e) => setBranchInput(e.target.value)}>
-          <option value="">— Şubeni Seç —</option>
-          {allBranches.map((branch) => (<option key={branch} value={branch}>{branch}</option>))}
-        </select>
-        <button className="btn-primary" onClick={login}>Başla 🚀</button>
+
+      {/* Form kartı */}
+      <div className="splash-card">
+        <div className="splash-card-header">
+          <h2 className="splash-card-title">Hemen Başla</h2>
+          <p className="splash-card-sub">Bilgilerini gir, sınava hazırlanmaya başla.</p>
+        </div>
+        <div className="splash-form-inner">
+          <div className="splash-input-group">
+            <label className="splash-label">Ad Soyad</label>
+            <div className="splash-input-wrap">
+              <svg className="splash-input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <input
+                className="splash-inp"
+                value={nameInput}
+                onChange={(e) => setNameInput(e.target.value)}
+                placeholder="Adınızı ve soyadınızı girin"
+                onKeyDown={(e) => e.key === 'Enter' && login()}
+              />
+            </div>
+          </div>
+          <div className="splash-input-group">
+            <label className="splash-label">Şube Seçimi</label>
+            <div className="splash-input-wrap">
+              <svg className="splash-input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <select
+                className="splash-inp splash-select"
+                value={branchInput}
+                onChange={(e) => setBranchInput(e.target.value)}
+              >
+                <option value="">— Şubenizi seçin —</option>
+                {allBranches.map((branch) => (<option key={branch} value={branch}>{branch}</option>))}
+              </select>
+            </div>
+          </div>
+          <button className="splash-btn" onClick={login}>
+            <span>Platforma Giriş Yap</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+          </button>
+        </div>
+        <div className="splash-trust">
+          <span>🔒 Verileriniz cihazınızda güvende saklanır</span>
+        </div>
       </div>
     </div>
   );

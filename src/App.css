@@ -34,6 +34,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body::before {
@@ -61,6 +62,8 @@ body::after {
 #app {
   position: relative;
   z-index: 1;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .screen {
@@ -906,4 +909,266 @@ body::after {
   .page-title {
     font-size: 20px;
   }
+}
+
+/* ── YENİ SPLASH EKRANI ─────────────────────────────── */
+.splash-new {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* Hero */
+.splash-hero {
+  position: relative;
+  height: 52vh;
+  min-height: 280px;
+  max-height: 420px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.splash-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+  animation: heroZoom 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+.splash-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,12,24,0.35) 0%,
+    rgba(8,12,24,0.15) 40%,
+    rgba(8,12,24,0.85) 100%
+  );
+}
+
+/* Üst logo bandı */
+.splash-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.splash-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--orange), #ea580c);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 11px 18px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.4px;
+  box-shadow: 0 6px 24px rgba(249,115,22,0.55), 0 0 0 2px rgba(255,255,255,0.15);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+
+/* Hero alt metin */
+.splash-hero-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 22px 22px;
+}
+
+.splash-hero-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+
+.splash-hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.splash-hero-title span {
+  color: var(--orange);
+}
+
+.splash-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.splash-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.splash-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.splash-stat-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 2px;
+}
+
+.splash-stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* Form kartı */
+.splash-card {
+  flex: 1;
+  background: var(--surface);
+  border-radius: 28px 28px 0 0;
+  margin-top: -24px;
+  padding: 28px 22px 32px;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(249,115,22,0.2);
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.4);
+}
+
+.splash-card-header {
+  margin-bottom: 22px;
+}
+
+.splash-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.splash-card-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.splash-form-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.splash-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.splash-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.splash-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.splash-input-icon {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.splash-inp {
+  width: 100%;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px 14px 42px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.splash-inp:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-dim);
+}
+
+.splash-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2364748b'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.splash-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--orange), #ea580c);
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--orange-glow);
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-top: 4px;
+  letter-spacing: 0.3px;
+}
+
+.splash-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 12px var(--orange-glow);
+}
+
+.splash-trust {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
 }
