@@ -1,18 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 
 const branchPhones = {
-  'Meram Şubesi': '0332 123 45 67',
-  'Karatay Şubesi': '0332 234 56 78',
-  'Selçuklu Şubesi': '0332 345 67 89',
-  'Ereğli Şubesi': '0332 456 78 90',
-  'Akşehir Şubesi': '0332 567 89 01',
-  'Beyşehir Şubesi': '0332 678 90 12',
-  'Cihanbeyli Şubesi': '0332 789 01 23',
-  'Ilgın Şubesi': '0332 890 12 34',
-  'Kadınhanı Şubesi': '0332 901 23 45',
-  'Kulu Şubesi': '0332 312 45 56',
-  'Seydişehir Şubesi': '0332 412 56 67',
-  'Yunak Şubesi': '0332 512 67 78'
+  'Meram Şubesi': '0532 303 28 16',
+  'Karatay Şubesi': '0532 303 28 16',
+  'Selçuklu Şubesi': '0532 303 28 16',
+  'Ereğli Şubesi': '0532 303 28 16',
+  'Akşehir Şubesi': '0532 303 28 16',
+  'Beyşehir Şubesi': '0532 303 28 16',
+  'Cihanbeyli Şubesi': '0532 303 28 16',
+  'Ilgın Şubesi': '0532 303 28 16',
+  'Kadınhanı Şubesi': '0532 303 28 16',
+  'Kulu Şubesi': '0532 303 28 16',
+  'Seydişehir Şubesi': '0532 303 28 16',
+  'Yunak Şubesi': '0532 303 28 16'
 };
 
 const questions = {
@@ -368,7 +368,7 @@ function App() {
 
   const currentQuestion = quizState.data[quizState.currentQ] || null;
   const quizProgress = quizState.data.length ? ((quizState.currentQ) / quizState.data.length) * 100 : 0;
-  const branchPhone = user ? branchPhones[user.branch] || '0332 322 45 56' : '0332 322 45 56';
+  const branchPhone = user ? branchPhones[user.branch] || '0532 303 28 16' : '0532 303 28 16';
   const score = quizState.data.length
     ? Math.round((quizState.answers.filter((answer) => answer.isCorrect).length / quizState.data.length) * 100)
     : 0;
@@ -423,7 +423,7 @@ function App() {
 
   const startQuiz = (category) => {
     const pool = questions[category] || [];
-    const quizData = shuffle(pool).slice(0, 5);
+    const quizData = shuffle(pool).slice(0, 10);
     setQuizState({ category, data: quizData, currentQ: 0, answers: [], hasAnswered: false, showResult: false });
     setScreen('quiz');
   };
@@ -583,7 +583,7 @@ function App() {
           </div>
           <h3 style={{ fontFamily: 'Syne', fontSize: 22 }}>Tebrikler!</h3>
           <p style={{ color: 'var(--muted)', fontSize: 14, maxWidth: 260 }}>
-            5 sorudan <strong>{quizState.answers.filter((a) => a.isCorrect).length} doğru</strong> ve <strong>{quizState.data.length - quizState.answers.filter((a) => a.isCorrect).length} yanlış</strong> yaptın.
+            {quizState.data.length} sorudan <strong>{quizState.answers.filter((a) => a.isCorrect).length} doğru</strong> ve <strong>{quizState.data.length - quizState.answers.filter((a) => a.isCorrect).length} yanlış</strong> yaptın.
           </p>
           <button className="btn-primary" style={{ width: '100%', maxWidth: 240, marginTop: 10 }} onClick={shareResultToFeed}>
             Akışta Paylaş 📣
@@ -600,7 +600,7 @@ function App() {
           <div className="options-list">
             {currentQuestion?.opts.map((opt, i) => {
               const answer = quizState.answers[quizState.currentQ];
-              const isCorrect = i === currentQuestion.a;
+              const isCorrect = quizState.hasAnswered && i === currentQuestion.a;
               const selectedWrong = quizState.hasAnswered && answer?.userAns === i && i !== currentQuestion.a;
               return (
                 <button
